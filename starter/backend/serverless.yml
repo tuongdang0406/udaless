@@ -30,15 +30,6 @@ provider:
   logs:
     restApi: true
 
-  iam:
-    role:
-      statements:
-        - Effect: Allow
-          Action:
-            - xray:PutTelemetryRecords
-            - xray:PutTraceSegments
-          Resource: "*"
-
 custom:
   documentation:
     api:
@@ -55,7 +46,6 @@ custom:
         schema: ${file(src/model/update-todo-model.json)}
 
 functions:
-
   Auth:
     handler: src/lambda/auth/auth0Authorizer.handler
     iamRoleStatements:
@@ -83,6 +73,9 @@ functions:
               - X-Amz-User-Agent
             allowCredentials: false
           authorizer: Auth
+          request:
+            schemas:
+              application/json: ${file(src/model/get-todo-model.json)}
     iamRoleStatementsName: ${self:provider.environment.PROJECT_NAME}-get-todo-role-${self:provider.stage}
     iamRoleStatements:
       - Effect: Allow
