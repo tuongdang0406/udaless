@@ -73,9 +73,6 @@ functions:
               - X-Amz-User-Agent
             allowCredentials: false
           authorizer: Auth
-          request:
-            schemas:
-              application/json: ${file(src/model/get-todo-model.json)}
     iamRoleStatementsName: ${self:provider.environment.PROJECT_NAME}-get-todo-role-${self:provider.stage}
     iamRoleStatements:
       - Effect: Allow
