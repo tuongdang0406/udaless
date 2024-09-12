@@ -16,7 +16,7 @@ export class commonAttachmentUtil {
         return s3.getSignedUrl('putObject', {
             Bucket: s3BucketName,
             Key: todoId,
-            Expires: Expiration
+            Expires: Number(Expiration)
         });
     }
 }
